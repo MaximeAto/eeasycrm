@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+    {% block content %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h2 class="h4">{% if title %}{{title}}{% else %}No Title{% endif %}</h2>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a class="btn btn btn-sm btn-outline-primary mr-2" role="button" href="{{ url_for('contacts.get_contacts_view') }}">
+                <span data-feather="trello"></span>
+            </a>
+            <a class="btn btn btn-sm btn-outline-primary" role="button" href="{{ url_for('contacts.new_contact') }}">
+                <span data-feather="plus"></span>
+                  New
+            </a>
+        </div>
+    </div>
+    {% if contacts|length > 0 %}
+        <div class="container-fluid" style="background-color: #f1f1f1; padding: 20px;">
+            <div class="kanban-container">
+                {% for stage_item in stages %}
+
+                <div class="card outer-card">
+                  <div id="cb_{{ stage_item}}" class="card-body" data-dropstage="{{ stage_item}}" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <h5 class="card-title">{{stage_item}}</h5>
+                      {% for contact in contacts %}
+                        {% if contact.stage == stage_item %}
+
+                            <div id="item_{{ contact.id }}" data-dealid="{{ contact.id }}" class="card inner-card bg-light mb-3"
+                                 draggable="true" ondragstart="dragStart(event)">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <div class="text">{{ contact.first_name|truncate(35, True)}}</div>
+                                    </h5>
+                                    <div class="card-text">
+                                        <div>Owner : {{ contact.account.first_name }}</div>
+                                    </div>
+                                    <div class="card-actions">
+                                        <div class="ca_item">
+                                            <a href="#" class="btn btn-sm btn-outline-secondary" role="button">
+                                                <span data-feather="arrow-up-right"></span> view details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                      {% endfor %}
+
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="container text-center pt-4">
+            <div><span data-feather="eye-off"></span></div>
+            <p>No deals found. Please create your first deal.</p>
+        </div>
+    {%  endif %}
+<script>
+    function allowDrop(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+
+    function update_contact_stage(dealId, stage) {
+
+        $('.ajax_indicator')
+            .css('display', 'block')
+            .text('processing')
+            .removeClass('done')
+            .addClass('processing');
+
+        $.ajax({
+            type: "GET",
+            url: "/contacts/update_stage/" + dealId + "/" + stage,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(data) {
+                $('.ajax_indicator')
+                    .html("<span data-feather='check'></span> " + data.message)
+                    .removeClass('processing')
+                    .addClass('done')
+                    .fadeOut(2000);
+
+            },
+        });
+    }
+
+    function mail(idealId){
+        $.ajax({
+            type: "GET",
+            url: "/contacts/send_email_to_contact/" + idealId,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(data) {
+                $('.ajax_indicator')
+                    .html("<span data-feather='check'></span> " + data.message)
+                    .removeClass('processing')
+                    .addClass('done')
+                    .fadeOut(2000);
+
+            },
+        });
+    }
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      var node = document.getElementById(data);
+      var first_node = ev.currentTarget.children[1];
+      if (node.parentNode.id !== ev.currentTarget.id) {
+        ev.currentTarget.insertBefore(node, first_node);
+        update_contact_stage(node.dataset.dealid, ev.currentTarget.dataset.dropstage);
+      }
+
+      if(ev.currentTarget.dataset.dropstage == "Etudiant"){
+        mail(node.dataset.dealid);
+      }
+      node.style.transform = 'rotate(0deg)';
+    }
+
+    function dragStart(ev) {
+      ev.dataTransfer.effectAllowed = "move";
+      ev.dataTransfer.setData("text/plain", ev.target.id);
+      ev.currentTarget.style.transform = 'rotate(3deg)';
+    }
+</script>
+    {% endblock %}
