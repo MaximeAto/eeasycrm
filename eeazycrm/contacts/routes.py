@@ -106,10 +106,10 @@ def get_contact_view_kanban():
             Contact.last_name.ilike(f'%{search}%'),
             Contact.email.ilike(f'%{search}%'),
             Contact.phone.ilike(f'%{search}%'),
-            Contact.mobile.ilike(f'%{search}%'),
-            Contact.address_line.ilike(f'%{search}%'),
-            Contact.addr_state.ilike(f'%{search}%'),
-            Contact.addr_city.ilike(f'%{search}%'),
+            Contact.school.ilike(f'%{search}%'),
+            Contact.classe.ilike(f'%{search}%'),
+            Contact.parentnumber.ilike(f'%{search}%'),
+            Contact.nb_choix.ilike(f'%{search}%'),
             Contact.post_code.ilike(f'%{search}%')
         ) if search else True)\
         .filter(account) \
