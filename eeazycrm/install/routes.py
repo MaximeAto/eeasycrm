@@ -63,10 +63,12 @@ def setup_sys_user():
         session['admin_email'] = form.email.data
         session['admin_password'] = hashed_pwd
 
-        sql_text = text(INSERT_SQL)
 
-        # create currency & timezone data
-        db.session.execute(sql_text)
+        # Exécuter chaque instruction individuellement
+        for statement in INSERT_SQL.split(';'):
+            if statement.strip():  # Ignorer les chaînes vides
+                    db.session.execute(text(statement))
+
         db.session.commit()
 
         return redirect(url_for('install.ex_settings'))
@@ -183,8 +185,8 @@ def finish():
 
         # create configuration
         app_cfg = AppConfig(
-            default_currency=session['app_currency_id'],
-            default_timezone=session['app_tz_id']
+            default_currency_id=session['app_currency_id'],
+            default_timezone_id=session['app_tz_id']
         )
 
         print(session['app_currency_id'])

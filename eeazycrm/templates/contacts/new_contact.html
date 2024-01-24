@@ -69,51 +69,26 @@
                     {{ form.phone(class="form-control from-control-lg", placeholder="(555) 555-1234") }}
                 </div>
             </div>
-
-            <div class="form-row">
-                 <div class="form-group col-6">
-                    {{ form.mobile.label(class="form-control-label") }}
-                    {{ form.mobile(class="form-control from-control-lg", placeholder="+91-9827666622") }}
-                 </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-9">
-                    {{ form.address_line.label(class="form-control-label") }}
-                    {{ form.address_line(class="form-control from-control-lg", placeholder="address line ...") }}
+            <div class="form-row mb-3">
+                <div class="col">
+                    {{ form.classe.label(class="form-control-label") }}
+                    {{ form.classe(class="form-control from-control-lg", placeholder="class ...") }}
+                </div>
+                <div class="col">
+                    {{ form.parentphone.label(class="form-control-label") }}
+                    {{ form.parentphone(class="form-control from-control-lg", placeholder="Parent Number ...") }}
                 </div>
             </div>
-            <div class="form-row mb-4">
-                <div class="col-3">
-                        {{ form.addr_state(class="form-control from-control-lg", placeholder="state ...") }}
-                    </div>
-                    <div class="col-3">
-                        {{ form.addr_city(class="form-control from-control-lg", placeholder="city ...") }}
-                    </div>
-                    <div class="col-3">
-                        {{ form.post_code(class="form-control from-control-lg", placeholder="postcode ...") }}
-                    </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-6">
-                    {{ form.country(class="form-control from-control-lg", placeholder="country ...") }}
+            <div class="form-row mb-3">
+                <div class="col">
+                    {{ form.school.label(class="form-control-label") }}
+                    {{ form.school(class="form-control from-control-lg", placeholder="school ...") }}
+                </div>
+                <div class="col">
+                    {{ form.nb_choix.label(class="form-control-label") }}
+                    {{ form.nb_choix(class="form-control from-control-lg", placeholder="Choise Number...") }}
                 </div>
             </div>
-
-            {% if current_user.is_admin %}
-            <div class="form-row">
-                 <div class="form-group col-6">
-                     {{ form.assignees.label(class="form-control-label") }}
-                    {{ form.assignees(class="form-control from-control-lg") }}
-                 </div>
-            </div>
-            {% endif %}
-
-            <div class="form-group">
-                {{ form.notes.label(class="form-control-label") }}
-                {{ form.notes(class="form-control from-control-lg") }}
-            </div>
-
     </div>
     </div>
 </form>

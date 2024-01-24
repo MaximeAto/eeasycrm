@@ -29,7 +29,8 @@ def login():
                 return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('User does not exist! Please contact the system administrator', 'danger')
-    return render_template("login.html", title="EeazyCRM - Login", form=form)
+
+    return render_template("login.html", title="ISJCRM - Login", form=form)
 
 
 @users.route("/register", methods=['GET', 'POST'])

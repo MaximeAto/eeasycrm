@@ -87,8 +87,8 @@ def create_app(config_class=ProductionConfig):
         # application is installed so extends the config
         from eeazycrm.settings.models import AppConfig, Currency, TimeZone
         app_cfg = AppConfig.query.first()
-        app.config['def_currency'] = Currency.get_currency_by_id(app_cfg.default_currency)
-        app.config['def_tz'] = TimeZone.get_tz_by_id(app_cfg.default_timezone)
+        app.config['def_currency'] = Currency.get_currency_by_id(app_cfg.default_currency_id)
+        app.config['def_tz'] = TimeZone.get_tz_by_id(app_cfg.default_timezone_id)
 
         # include the routes
         # from eeazycrm import routes
@@ -100,6 +100,7 @@ def create_app(config_class=ProductionConfig):
         from eeazycrm.settings.routes import settings
         from eeazycrm.settings.app_routes import app_config
 
+
         # register routes with blueprint
         app.register_blueprint(main)
         app.register_blueprint(users)
@@ -107,6 +108,9 @@ def create_app(config_class=ProductionConfig):
         app.register_blueprint(app_config)
         app.register_blueprint(accounts)
         app.register_blueprint(contacts)
+
+        db.create_all()
+
         return app
 
 

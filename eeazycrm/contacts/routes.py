@@ -158,26 +158,20 @@ def new_contact():
                 last_name=form.last_name.data,
                 email=form.email.data,
                 phone=form.phone.data,
-                mobile=form.mobile.data,
-                address_line=form.address_line.data,
-                addr_state=form.addr_state.data,
-                addr_city=form.addr_city.data,
-                post_code=form.post_code.data,
-                country=form.country.data,
-                notes=form.notes.data,
+                parentnumber=form.parentphone.data,
+                classe=form.classe.data,
+                etablissement=form.school.data,
+                nb_choix=form.nb_choix.data,
                 stage = "Nouveau"
             )
 
             contact.account = form.accounts.data
-
+            contact.contact_owner = current_user
             if form.avatar.data:
                 picture_file = upload_avatar(contact, form.avatar.data)
                 contact.avatar = picture_file
 
-            if current_user.is_admin:
-                contact.contact_owner = form.assignees.data
-            else:
-                contact.contact_owner = current_user
+             
 
             db.session.add(contact)
             db.session.commit()
@@ -199,20 +193,17 @@ def update_contact(contact_id):
 
     form = NewContact()
     if request.method == 'POST':
-        if form.validate_on_submit():
+        if form.validate():
             contact.first_name = form.first_name.data
             contact.last_name = form.last_name.data
             contact.email = form.email.data
             contact.phone = form.phone.data
-            contact.mobile = form.mobile.data
-            contact.address_line = form.address_line.data
-            contact.addr_state = form.addr_state.data
-            contact.addr_city = form.addr_city.data
-            contact.post_code = form.post_code.data
-            contact.country = form.country.data
-            contact.contact_owner = form.assignees.data
+            contact.classe = form.classe.data
+            contact.etablissement = form.school.data
+            contact.nb_choix = form.nb_choix.data
+            contact.parentnumber = form.parentphone.data
             contact.account = form.accounts.data
-            contact.notes = form.notes.data
+          
             db.session.commit()
             flash('The contact has been successfully updated', 'success')
             return redirect(url_for('contacts.get_contact_view', contact_id=contact.id))
@@ -224,15 +215,12 @@ def update_contact(contact_id):
         form.last_name.data = contact.last_name
         form.email.data = contact.email
         form.phone.data = contact.phone
-        form.mobile.data = contact.mobile
-        form.address_line.data = contact.address_line
-        form.addr_state.data = contact.addr_state
-        form.addr_city.data = contact.addr_city
-        form.post_code.data = contact.post_code
-        form.country.data = contact.country
-        form.assignees.data = contact.contact_owner
+        form.classe.data = contact.classe
+        form.school.data = contact.etablissement
+        form.nb_choix.data = contact.nb_choix
+        form.parentphone.data = contact.parentnumber
         form.accounts.data = contact.account
-        form.notes.data = contact.notes
+
         form.submit.label = Label('update_contact', 'Update Contact')
     return render_template("contacts/new_contact.html", title="Update Contact", form=form)
 

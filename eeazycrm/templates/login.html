@@ -35,8 +35,8 @@
   <body class="text-center">
       <form class="form-signin" method="POST">
           {{ form.hidden_tag() }} <!-- security 'csrf' token -->
-        <img class="mb-4" src="{{ url_for('static', filename='imgs/bootstrap-solid.svg') }}" alt="" width="72" height="72">
-          {% with messages = get_flashed_messages(with_categories=true) %}
+        <img class="mb-4" src="../static/imgs/crm.png" alt="" width="120" height="120">
+          <!-- {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="alert alert-{{ category }} text-left">
@@ -44,11 +44,11 @@
                     </div>
                 {% endfor %}
             {% endif %}
-          {% endwith %}
-          <h3 class="h3 mb-3 font-weight-normal">EeazyCRM - Sign In</h3>
-          <hr />
-
-          <div class="form-group text-left">
+          {% endwith %} -->
+          <h3 style="font-size: 3em;" class="h3 mb-3 font-weight-normal">Sign In</h3>
+          
+          {{ form.hidden_tag() }}
+          <div style="padding-top: 2em;" class="form-group text-left">
               {{ form.email.label(class="form-control-label") }}
                {% if form.email.errors %}
                 {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -86,8 +86,6 @@
           <p class="text-muted ml-1 text-left" style="display: block;">
             <a href="#">Forgot Password?</a>
           </p>
-
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
       </form>
 </body>
 </html>

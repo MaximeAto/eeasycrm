@@ -25,13 +25,11 @@
                   <th width="150" scope="col">First Name</th>
                   <th width="150" scope="col">Last Name</th>
                   <th width="300" scope="col">Email</th>
-                    <th width="150" scope="col">Phone</th>
-                    <th width="200" scope="col">Mobile</th>
-                    <th width="250" scope="col">Address</th>
-                    <th width="250" scope="col">State</th>
-                    <th width="200" scope="col">City</th>
-                    <th width="100" scope="col">Country</th>
-                    <th width="200" scope="col">Date Created</th>
+                  <th width="150" scope="col">Phone</th>
+                  <th width="150" scope="col">Class</th>
+                  <th width="150" scope="col">Parent Number</th>
+                  <th width="150" scope="col">Etablissement</th>
+                  <th width="200" scope="col">Date Created</th>
                 </tr>
               </thead>
               <tbody>
@@ -61,11 +59,9 @@
                   <td>{{ contact.last_name }}</td>
                     <td>{{ contact.email }}</td>
                     <td>{{ contact.phone }}</td>
-                    <td>{{ contact.mobile }}</td>
-                     <td>{{ contact.address_line }}</td>
-                     <td>{{ contact.addr_state }}</td>
-                     <td>{{ contact.addr_city }}</td>
-                     <td>{{ contact.country }}</td>
+                    <td>{{ contact.classe }}</td>
+                    <td>{{ contact.parentnumber }}</td>
+                    <td>{{ contact.etablissement }}</td>
                     <td>{{ contact.date_created.strftime('%Y-%m-%d') if contact.date_created }}</td>
                 </tr>
                 {% endfor %}

@@ -13,19 +13,19 @@ class Config(object):
 class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = DEV_SECRET_KEY
-    SQLALCHEMY_DATABASE_URI = f'postgresql://{DEV_DB_USER}:{DEV_DB_PASS}@{DEV_DB_HOST}/{DEV_DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DEV_DB_USER}:{DEV_DB_PASS}@{DEV_DB_HOST}/{DEV_DB_NAME}'
     SQLALCHEMY_BINDS = {'eeazycrm': SQLALCHEMY_DATABASE_URI}
 
 
 class TestConfig(Config):
     TESTING = True
     SECRET_KEY = TEST_SECRET_KEY
-    SQLALCHEMY_DATABASE_URI = f'postgresql://{TEST_DB_USER}{TEST_DB_PASS}:@{TEST_DB_HOST}/{TEST_DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{TEST_DB_USER}{TEST_DB_PASS}:@{TEST_DB_HOST}/{TEST_DB_NAME}'
 
 
 class ProductionConfig(Config):
     SECRET_KEY = SECRET_KEY
-    SQLALCHEMY_DATABASE_URI = f'postgresql://{DB_USER}:{DB_USER}@{DB_HOST}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_USER}@{DB_HOST}/{DB_NAME}'
 
 
 
