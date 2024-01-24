@@ -82,6 +82,12 @@
                     .addClass('done')
                     .fadeOut(2000);
 
+                if (stage === "Etudiant") {
+                var draggedElement = document.getElementById("item_" + dealId);
+                if (draggedElement) {
+                    draggedElement.draggable = false;
+                }
+            }
             },
         });
     }
