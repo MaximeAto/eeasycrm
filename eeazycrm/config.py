@@ -1,4 +1,29 @@
-from .config_vars  import * 
+# DEVELOPMENT KEY
+DEV_SECRET_KEY = 'WO2JxQLMzAMAnIZfRYbVtR8yfPPbfBSJ'
+
+# TESTING KEY
+TEST_SECRET_KEY = 'WO2JxQLMzAMAnIZfRYbVtR8yfPPbfBSJ'
+
+# PRODUCTION KEY
+SECRET_KEY = 'WO2JxQLMzAMAnIZfRYbVtR8yfPPbfBSJ'
+
+# DEVELOPMENT DATABASE SETTINGS
+DEV_DB_HOST = 'localhost'
+DEV_DB_USER = 'root'
+DEV_DB_PASS = ''
+DEV_DB_NAME = 'eeazy_crm'
+
+# TEST DATABASE SETTINGS
+TEST_DB_HOST = 'localhost'
+TEST_DB_USER = 'root'
+TEST_DB_PASS = ''
+TEST_DB_NAME = 'eeazy_crm'
+
+# PRODUCTION DATABASE SETTINGS (Default)
+DB_HOST = 'localhost'
+DB_USER = 'root'
+DB_PASS = ''
+DB_NAME = 'eeazy_crm'
 
 
 

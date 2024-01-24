@@ -110,10 +110,8 @@ def get_contact_view_kanban():
             Contact.classe.ilike(f'%{search}%'),
             Contact.parentnumber.ilike(f'%{search}%'),
             Contact.nb_choix.ilike(f'%{search}%'),
-            Contact.post_code.ilike(f'%{search}%')
         ) if search else True)\
         .filter(account) \
-        .filter(owner) \
         .filter(advanced_filters) \
         .order_by(Contact.date_created.desc())
     
